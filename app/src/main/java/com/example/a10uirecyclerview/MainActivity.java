@@ -1,17 +1,26 @@
 package com.example.a10uirecyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.DialogTitle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdaptadorPersonajes.OnItemClickListener {
+
+    private static final String TAG = "Main Activity";
 
     ArrayList<PersonajeVO> listaPersonajes;
     RecyclerView recyclerPersonajes;
+    TextView tvSeleccion;
 
 
     @Override
@@ -21,15 +30,24 @@ public class MainActivity extends AppCompatActivity {
 
         listaPersonajes = new ArrayList<>();
         recyclerPersonajes = findViewById(R.id.rvPersonajes);
+        tvSeleccion = findViewById(R.id.tvSeleccion);
 
         recyclerPersonajes.setLayoutManager(new GridLayoutManager(this, 1));
 
         llenarPersonajes();
 
-        AdaptadorPersonajes adaptadorPersonajes = new AdaptadorPersonajes(listaPersonajes);
+        final AdaptadorPersonajes adaptadorPersonajes = new AdaptadorPersonajes(listaPersonajes, this);
         recyclerPersonajes.setAdapter(adaptadorPersonajes);
+
+
     }
 
+    @Override
+    public void onItemClick(int position) {
+        PersonajeVO personaje = listaPersonajes.get(position);
+
+        tvSeleccion.setText("Seleccionado: " + personaje.getNombre());
+    }
 
     private void llenarPersonajes() {
         listaPersonajes.add(new PersonajeVO("Krusty","Herschel Shmoikel Pinkus Yerocham Krustofsky, conocido como Krusty el payaso, es un personaje de la serie de dibujos animados Los Simpson.",R.drawable.krusti));
