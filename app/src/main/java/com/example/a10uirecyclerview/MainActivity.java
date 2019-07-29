@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<PersonajeVO> listaPersonajes;
     RecyclerView recyclerPersonajes;
     TextView tvSeleccion;
-    Button btnList, btnGrid;
 
 
     @Override
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerPersonajes = findViewById(R.id.rvPersonajes);
 
         tvSeleccion = findViewById(R.id.tvSeleccion);
-        btnList = findViewById(R.id.btnList);
-        btnGrid = findViewById(R.id.btnGrid);
 
         construirRecycler();
     }
