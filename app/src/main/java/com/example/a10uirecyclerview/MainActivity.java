@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AdaptadorPersonajes.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main Activity";
 
@@ -36,17 +36,18 @@ public class MainActivity extends AppCompatActivity implements AdaptadorPersonaj
 
         llenarPersonajes();
 
-        final AdaptadorPersonajes adaptadorPersonajes = new AdaptadorPersonajes(listaPersonajes, this);
+        final AdaptadorPersonajes adaptadorPersonajes = new AdaptadorPersonajes(listaPersonajes);
         recyclerPersonajes.setAdapter(adaptadorPersonajes);
 
+        adaptadorPersonajes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PersonajeVO personaje = listaPersonajes.get(recyclerPersonajes.getChildAdapterPosition(view));
 
-    }
+                tvSeleccion.setText("Seleccionado: " + personaje.getNombre());
+            }
+        });
 
-    @Override
-    public void onItemClick(int position) {
-        PersonajeVO personaje = listaPersonajes.get(position);
-
-        tvSeleccion.setText("Seleccionado: " + personaje.getNombre());
     }
 
     private void llenarPersonajes() {

@@ -11,18 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.ViewHolderPersonajes> {
+public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.ViewHolderPersonajes>
+                                 implements View.OnClickListener {
 
     ArrayList<PersonajeVO> listaPersonajes;
-    OnItemClickListener onItemClickListener;
+    private View.OnClickListener listener;
 
-    public AdaptadorPersonajes(ArrayList<PersonajeVO> listaPersonajes, OnItemClickListener onItemClickListener) {
+    public AdaptadorPersonajes(ArrayList<PersonajeVO> listaPersonajes) {
         this.listaPersonajes = listaPersonajes;
-        this.onItemClickListener = onItemClickListener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
+    @Override
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onClick(view);
+        }
+    }
+
+    public void setOnClickListener (View.OnClickListener listener) {
+        this.listener = listener;
     }
 
 
@@ -30,8 +37,9 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @Override
     public ViewHolderPersonajes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personajes,null,false);
+        vista.setOnClickListener(this);
 
-        return new ViewHolderPersonajes(vista, onItemClickListener);
+        return new ViewHolderPersonajes(vista);
     }
 
     @Override
@@ -47,25 +55,16 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     }
 
 
-    public class ViewHolderPersonajes extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderPersonajes extends RecyclerView.ViewHolder {
         TextView tvNombre, tvDescripcion;
         ImageView ivFoto;
-        OnItemClickListener onPersonajeListener;
 
-        public ViewHolderPersonajes(@NonNull View itemView, OnItemClickListener onPersonajeListener) {
+        public ViewHolderPersonajes(@NonNull View itemView) {
             super(itemView);
 
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
             ivFoto = itemView.findViewById(R.id.ivFoto);
-            this.onPersonajeListener = onPersonajeListener;
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            onPersonajeListener.onItemClick(getAdapterPosition());
         }
     }
 }
