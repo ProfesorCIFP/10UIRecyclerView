@@ -36,7 +36,8 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @NonNull
     @Override
     public ViewHolderPersonajes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personajes,null,false);
+        //View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personajes,null,false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_personajes,null,false);
         vista.setOnClickListener(this);
 
         return new ViewHolderPersonajes(vista);
@@ -45,7 +46,7 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderPersonajes holder, final int position) {
         holder.tvNombre.setText(listaPersonajes.get(position).getNombre());
-        holder.tvDescripcion.setText(listaPersonajes.get(position).getDescripcion());
+//        holder.tvDescripcion.setText(listaPersonajes.get(position).getDescripcion());
         holder.ivFoto.setImageResource(listaPersonajes.get(position).getFoto());
     }
 
@@ -63,7 +64,7 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
             super(itemView);
 
             tvNombre = itemView.findViewById(R.id.tvNombre);
-            tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
+           // tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
             ivFoto = itemView.findViewById(R.id.ivFoto);
         }
     }

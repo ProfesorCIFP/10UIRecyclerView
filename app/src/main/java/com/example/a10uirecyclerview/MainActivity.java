@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerPersonajes = findViewById(R.id.rvPersonajes);
         tvSeleccion = findViewById(R.id.tvSeleccion);
 
-        recyclerPersonajes.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerPersonajes.setLayoutManager(new GridLayoutManager(this, 3));
 
         llenarPersonajes();
 
