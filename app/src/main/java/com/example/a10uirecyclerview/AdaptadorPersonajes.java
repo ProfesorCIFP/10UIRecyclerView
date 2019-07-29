@@ -36,8 +36,14 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @NonNull
     @Override
     public ViewHolderPersonajes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personajes,null,false);
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_personajes,null,false);
+        int layout = 0;
+
+        if (Utilidades.visualizacion == Utilidades.LIST)
+            layout = R.layout.item_list_personajes;
+        else
+            layout = R.layout.item_grid_personajes;
+
+        View vista = LayoutInflater.from(parent.getContext()).inflate(layout,null,false);
         vista.setOnClickListener(this);
 
         return new ViewHolderPersonajes(vista);
@@ -46,8 +52,9 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderPersonajes holder, final int position) {
         holder.tvNombre.setText(listaPersonajes.get(position).getNombre());
-//        holder.tvDescripcion.setText(listaPersonajes.get(position).getDescripcion());
         holder.ivFoto.setImageResource(listaPersonajes.get(position).getFoto());
+        if (Utilidades.visualizacion == Utilidades.LIST)
+            holder.tvDescripcion.setText(listaPersonajes.get(position).getDescripcion());
     }
 
     @Override
@@ -64,8 +71,9 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
             super(itemView);
 
             tvNombre = itemView.findViewById(R.id.tvNombre);
-           // tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            if (Utilidades.visualizacion == Utilidades.LIST)
+                tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
         }
     }
 }
